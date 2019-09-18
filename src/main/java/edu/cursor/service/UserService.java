@@ -1,26 +1,28 @@
 package edu.cursor.service;
 
-import edu.cursor.rep.UserRep;
+import edu.cursor.rep.UserRepo;
 import edu.cursor.userData.User;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+import java.util.stream.Collectors;
+@Repository
+public class UserService implements UserRepo {
+    private List<User> users = new ArrayList<>();
 
-@Service
-public class UserService {
-    UserRep userRep = new UserRep();
-    Random random = new Random();
-
-    public void addNewUser(User user){
-        user.setAccessId(random.nextInt(10));
-        userRep.addNewUser(user);
+    @Override
+    public void addNewUser(User user) {
+        users.add(user);
     }
+
+    @Override
     public List<User> getAllUsers() {
-        return userRep.getAllUsers();
+        return users;
     }
+
+    @Override
     public List<User> getOneUserByEmail(String email) {
-        return userRep.getOneUserByEmail(email);
+        return users.stream().filter(t->t.getEmail().equals(email)).collect(Collectors.toList());
     }
 }
-

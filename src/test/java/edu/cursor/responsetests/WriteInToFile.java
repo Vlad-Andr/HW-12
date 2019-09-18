@@ -9,11 +9,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Map;
 import java.util.Random;
 
 @RunWith(SpringRunner.class)
 public class WriteInToFile {
-    private static final String TEST_PATH = "target/resultTest.json";
+    private static final String TEST_PATH = "resultTest.json";
     Random random = new Random();
 
     ObjectMapper objectMapper;
@@ -23,7 +24,7 @@ public class WriteInToFile {
     }
 
     @Test
-    public void testSerealizationToFile() throws IOException {
+    public void testSerializationToFile() throws IOException {
 
         User user = new User();
         user.setAccessId(random.nextInt(10));
@@ -31,7 +32,7 @@ public class WriteInToFile {
         user.setSurname("MySurName");
         user.setEmail("mymail@g.com");
         user.setLastLoginDate(LocalDate.of(2010,10,10));
-        user.setStatusHW("hw1",true);
+        user.setStatusHW("hw1","true");
 
         objectMapper.writeValue(new FileOutputStream(TEST_PATH),user);
     }
