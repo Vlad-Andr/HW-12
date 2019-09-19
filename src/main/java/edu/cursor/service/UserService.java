@@ -1,28 +1,13 @@
 package edu.cursor.service;
 
-import edu.cursor.rep.UserRepo;
 import edu.cursor.userData.User;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-@Repository
-public class UserService implements UserRepo {
-    private List<User> users = new ArrayList<>();
+import java.io.IOException;
 
-    @Override
-    public void addNewUser(User user) {
-        users.add(user);
-    }
-
-    @Override
-    public List<User> getAllUsers() {
-        return users;
-    }
-
-    @Override
-    public List<User> getOneUserByEmail(String email) {
-        return users.stream().filter(t->t.getEmail().equals(email)).collect(Collectors.toList());
-    }
+@Service
+public interface UserService {
+        User getInfoByUser(String email);
+        void saveUserToFile(User user) throws IOException;
 }
+
